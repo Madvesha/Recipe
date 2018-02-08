@@ -8,7 +8,7 @@ android {
         releaseconfig {
             keyAlias 'recipe'
             keyPassword 'application'
-            storeFile file('/home/shubhank/AndroidStudioProjects/RecipeApplication1/app/Production/SignedAPk/production-release.jks')
+            storeFile file('/home/shubhank/AndroidStudioProjects/RecipeApplication1/app/build/outputs/apk/Staging/signedapk/staging-release.jks')
             storePassword 'recipeapp'
         }
     }
@@ -43,6 +43,8 @@ android {
             applicationId "com.simpragma.recipe.stage"
             //Configure this flavor specific app name published in Play Store
             //resValue "string", "flavored_app_nae.st", "Free Great App"
+            signingConfig signingConfigs.releaseconfig
+            targetSdkVersion 20
         }
         Production {
             //select the dimension of flavor

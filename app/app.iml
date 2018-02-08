@@ -8,68 +8,68 @@
     </facet>
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="StagingRelease" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleStagingRelease" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileStagingReleaseSources" />
+        <option name="SELECTED_BUILD_VARIANT" value="ProductionRelease" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleProductionRelease" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileProductionReleaseSources" />
         <afterSyncTasks>
-          <task>generateStagingReleaseSources</task>
+          <task>generateProductionReleaseSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/Staging/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/Production/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
-    <output url="file://$MODULE_DIR$/build/intermediates/classes/Staging/release" />
-    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/Staging/release" />
+    <output url="file://$MODULE_DIR$/build/intermediates/classes/Production/release" />
+    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/Production/release" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/Staging/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/Staging/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/Staging/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/Staging/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/Staging/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/Staging/release" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/Staging/release" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/StagingRelease/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/Staging/release" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStagingRelease/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Staging/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestStaging/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testStaging/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/Production/release" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/Production/release" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/Production/release" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/Production/release" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/Production/release" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/Production/release" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/Production/release" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProductionRelease/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/Production/release" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProductionRelease/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Production/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestProduction/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testProduction/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/release/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/release/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/release/assets" type="java-resource" />

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">RecipeApplication1</string>
+    <string name="app_name">MagicRecipe</string>
     <string name="title_activity_search_acivtiy">SearchAcivtiy</string>
+    <string name="url">http://www.recipepuppy.com/api/?i=</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
