@@ -68,8 +68,8 @@ public class RecipeRoomDB {
         this.thumbnail = thumbnail;
     }
 
-    public RecipeRoomDB( int id,String title, String ingredients, String href, String thumbnail) {
-        this.id=id;
+    public RecipeRoomDB(int id, String title, String ingredients, String href, String thumbnail) {
+        this.id = id;
         this.title = title;
         this.ingredients = ingredients;
         this.href = href;

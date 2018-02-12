@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.simpragma.recipe.roomDatabase.AppDatabase;
 import com.simpragma.recipe.roomDatabase.RecipeRoomDB;
-import com.simpragma.recipe.roomDatabase.RoomDataBaseAdapter;
+import com.simpragma.recipe.roomDatabase.RoomDatabaseAdapter;
 
 
 import java.util.ArrayList;
@@ -49,17 +49,19 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     RecyclerView recyclerView;
 
     private DataAdapter customAdapter;
-    DataBaseAdapter dataBaseAdapter;
+    DatabaseAdapter dataBaseAdapter;
     ArrayList<ResultList> dataBaseResults;
     DatabaseHandler db;
     ResultList result;
     TextView textView;
+    String version = "";
+    PackageInfo pInfo;
 
 
     AppDatabase db1;
     RecipeRoomDB recipeRoomDB;
     List<com.simpragma.recipe.roomDatabase.RecipeRoomDB> recipesList;
-    RoomDataBaseAdapter roomDataBaseAdapter;
+    RoomDatabaseAdapter roomDataBaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +69,8 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_search_item1);
 
         if (com.simpragma.recipe.Constants.type == com.simpragma.recipe.Constants.Type.Staging) {
-            String version = "";
             try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 version = pInfo.versionName + " " + pInfo.packageName;
                 Log.d(TAG, " STAGING VERSION" + version);
 
@@ -77,9 +78,8 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 e.printStackTrace();
             }
         } else {
-            String version = "";
             try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 version = pInfo.versionName + " " + pInfo.packageName;
                 Log.d(TAG, " PRODUCTION VERSION" + version);
             } catch (PackageManager.NameNotFoundException e) {
@@ -89,7 +89,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
         searchEditText = (EditText) findViewById(R.id.editText_search);
         searchButton = (Button) findViewById(R.id.button_search);
-        textView = (TextView) findViewById(R.id.textnotfound);
+        textView = (TextView) findViewById(R.id.text_notfound);
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(SearchItemActivity.this, 2));
         db = new DatabaseHandler(this);
@@ -98,18 +98,17 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 AppDatabase.class, "recipeMangerRoom").allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
-        recipesList=db1.recipeDao().getAll();
+        recipesList = db1.recipeDao().getAll();
 
         searchButton.setOnClickListener(this);
 
-        if(recipesList.size()>0)
-        {
-            for(RecipeRoomDB model : recipesList) {
-                Log.d(TAG,model.getId()+"");
-                Log.d(TAG,model.getTitle());
-                Log.d(TAG,model.getIngredients());
-                Log.d(TAG,model.getHref());
-                Log.d(TAG,model.getThumbnail());
+        if (recipesList.size() > 0) {
+            for (RecipeRoomDB model : recipesList) {
+                Log.d(TAG, model.getId() + "");
+                Log.d(TAG, model.getTitle());
+                Log.d(TAG, model.getIngredients());
+                Log.d(TAG, model.getHref());
+                Log.d(TAG, model.getThumbnail());
 
             }
 
@@ -118,14 +117,14 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 //        dataBaseResults = db.getAllRecipe();
 //        Log.d("DataBase ResultList", dataBaseResults.size() + "");
 //        if (dataBaseResults.size() > 0) {
-//            dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
+//            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
 //            recyclerView.setBackgroundColor(Color.LTGRAY);
 //            recyclerView.setAdapter(dataBaseAdapter);
 //        }
 
         Log.d("RoomDataBase ResultList", recipesList.size() + "");
         if (recipesList.size() > 0) {
-            roomDataBaseAdapter = new RoomDataBaseAdapter(SearchItemActivity.this, recipesList);
+            roomDataBaseAdapter = new RoomDatabaseAdapter(SearchItemActivity.this, recipesList);
             recyclerView.setBackgroundColor(Color.LTGRAY);
             recyclerView.setAdapter(roomDataBaseAdapter);
         }
@@ -139,13 +138,13 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 //        dataBaseResults = db.getAllRecipe();
 //        Log.d("DataBase ResultList", dataBaseResults.size() + "");
 //        if (dataBaseResults.size() > 0) {
-//            dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
+//            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
 //            recyclerView.setAdapter(dataBaseAdapter);
 //        }
 
         Log.d("RoomDataBase ResultList", recipesList.size() + "");
         if (recipesList.size() > 0) {
-            roomDataBaseAdapter = new RoomDataBaseAdapter(SearchItemActivity.this, recipesList);
+            roomDataBaseAdapter = new RoomDatabaseAdapter(SearchItemActivity.this, recipesList);
             recyclerView.setBackgroundColor(Color.LTGRAY);
             recyclerView.setAdapter(roomDataBaseAdapter);
         }
@@ -191,27 +190,27 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setAdapter(customAdapter);
 
                 //Deleteing DB values
-              //  db.deleteRecipe(result);
+                //  db.deleteRecipe(result);
 
-                for(RecipeRoomDB model : recipesList) {
-                    Log.d(TAG,model.getId()+"");
-                    Log.d(TAG,model.getTitle());
-                    Log.d(TAG,model.getIngredients());
-                    Log.d(TAG,model.getHref());
-                    Log.d(TAG,model.getThumbnail());
+                for (RecipeRoomDB model : recipesList) {
+                    Log.d(TAG, model.getId() + "");
+                    Log.d(TAG, model.getTitle());
+                    Log.d(TAG, model.getIngredients());
+                    Log.d(TAG, model.getHref());
+                    Log.d(TAG, model.getThumbnail());
 
                 }
 
-                Log.d(TAG,"Deletd Items From ROOMDB");
+                Log.d(TAG, "Deletd Items From ROOMDB");
                 db1.recipeDao().deleteRecipe();
 
-              //  Log.d("Deleted Items", "From Recipe Table");
+                //  Log.d("Deleted Items", "From Recipe Table");
 
                 for (ResultList rs : reciperesults) {
 //                    db.addRecipe(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
 //                            rs.getHref(), rs.getThumbnail()));
                     db1.recipeDao().insertAll(new
-                            com.simpragma.recipe.roomDatabase.RecipeRoomDB(rs.getId(),rs.getTitle(),rs.getIngredients(),rs.getHref(),rs.getThumbnail()));
+                            com.simpragma.recipe.roomDatabase.RecipeRoomDB(rs.getId(), rs.getTitle(), rs.getIngredients(), rs.getHref(), rs.getThumbnail()));
 
                     Log.d("Inside Button Click", "Title" + rs.getTitle() + "Ingredients" +
                             rs.getIngredients() + "Thumbnail" + rs.getThumbnail());

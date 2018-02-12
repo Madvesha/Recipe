@@ -10,21 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simpragma.recipe.roomDatabase.RecipeRoomDB;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Madvesha on 2/4/18.
  */
 
-public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHolder> {
+public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
     ArrayList<ResultList> dataBaseList;
     Context context;
 
-    public DataBaseAdapter(Context context, ArrayList<ResultList> dataBaseList) {
+    public DatabaseAdapter(Context context, ArrayList<ResultList> dataBaseList) {
         this.context = context;
         this.dataBaseList = dataBaseList;
     }
@@ -68,8 +66,8 @@ public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.title_TextView);
+            recipeImageView = (ImageView) view.findViewById(R.id.recipe_Image);
         }
     }
 

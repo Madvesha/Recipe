@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.simpragma.recipe.recipeapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -18,21 +19,22 @@ import java.util.List;
  * Created by Madvesha on 2/12/18.
  */
 
-public class RoomDataBaseAdapter extends RecyclerView.Adapter<RoomDataBaseAdapter.ViewHolder> {
+public class RoomDatabaseAdapter extends RecyclerView.Adapter<RoomDatabaseAdapter.ViewHolder> {
 
     Context context;
     private List<RecipeRoomDB> recipeRoomDBList;
 
 
-    public RoomDataBaseAdapter(Context context, List<RecipeRoomDB> recipeRoomDBList) {
+    public RoomDatabaseAdapter(Context context, List<RecipeRoomDB> recipeRoomDBList) {
         this.recipeRoomDBList = recipeRoomDBList;
         this.context = context;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_row, viewGroup,
                 false);
-        return new RoomDataBaseAdapter.ViewHolder(view);
+        return new RoomDatabaseAdapter.ViewHolder(view);
     }
 
     @Override
@@ -69,8 +71,8 @@ public class RoomDataBaseAdapter extends RecyclerView.Adapter<RoomDataBaseAdapte
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.title_TextView);
+            recipeImageView = (ImageView) view.findViewById(R.id.recipe_Image);
         }
     }
 }
