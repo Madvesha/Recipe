@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by MadveshaK on 2/4/18.
+ * Created by Madvesha on 2/4/18.
  */
 
 public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHolder> {
@@ -36,21 +36,20 @@ public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int i) {
-        holder.textView.setText(dataBaseList.get(i).getTitle());
-        String iamge = dataBaseList.get(i).getThumbnail();
-        if (iamge.equals("") || iamge == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.imageView);
+        holder.titleTextView.setText(dataBaseList.get(i).getTitle());
+        String recipeIamge = dataBaseList.get(i).getThumbnail();
+        if (recipeIamge.equals("") || recipeIamge == null) {
+            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
         } else {
-            Picasso.with(context).load(iamge).error(R.mipmap.ic_launcher).into(holder.imageView);
+            Picasso.with(context).load(recipeIamge).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
                 browserIntent.setData(Uri.parse(dataBaseList.get(i).getHref().toString().trim()));
                 context.startActivity(browserIntent);
-
             }
         });
     }
@@ -62,13 +61,13 @@ public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
-        ImageView imageView;
+        TextView titleTextView;
+        ImageView recipeImageView;
 
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.title_search);
-            imageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
+            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
         }
     }
 

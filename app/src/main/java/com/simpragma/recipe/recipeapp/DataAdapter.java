@@ -15,17 +15,17 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by shubhank on 2/1/18.
+ * Created by Madvesha  on 2/1/18.
  */
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
-    Recipie recipeResult;
+    Recipe recipeResult;
     Context context;
     private ArrayList<ResultList> apiResultList;
 
 
-    public DataAdapter(Context context, Recipie recipeResult, ArrayList<ResultList> arrylist) {
+    public DataAdapter(Context context, Recipe recipeResult, ArrayList<ResultList> arrylist) {
         this.recipeResult = recipeResult;
         this.context = context;
         apiResultList = arrylist;
@@ -42,15 +42,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(DataAdapter.ViewHolder holder, final int i) {
 
-        holder.textView.setText(apiResultList.get(i).getTitle());
-        String image = apiResultList.get(i).getThumbnail();
-        if (image.equals("") || image == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.imageView);
+        holder.titleTextView.setText(apiResultList.get(i).getTitle());
+        String recipeImage = apiResultList.get(i).getThumbnail();
+        if (recipeImage.equals("") || recipeImage == null) {
+            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
         } else {
-            Picasso.with(context).load(image).error(R.mipmap.ic_launcher).into(holder.imageView);
+            Picasso.with(context).load(recipeImage).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
         }
-            /*Picasso.with(context).load(results.get(i).getThumbnail())
-                    .placeholder(R.drawable.ic_search).into(holder.imageView);*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +69,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
-        ImageView imageView;
+        TextView titleTextView;
+        ImageView recipeImageView;
 
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.title_search);
-            imageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
+            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
         }
     }
 

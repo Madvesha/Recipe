@@ -6,8 +6,9 @@ package com.simpragma.recipe;
 
 public class Constants {
 
-    public enum Type{
-        Staging,Production;
+    public enum Type {
+        Staging, Production;
     }
-    public static final Type type=Type.Staging;
+
+    public static final Type type = Type.Production;
 }

@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:id="@+id/recipesearch">
 
-  <!--  <SearchView
-        android:id="@+id/simpleSearchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search here"
-        android:layout_below="@+id/editText_search"
-        />
--->
     <Button
         android:id="@+id/button_search"
         android:layout_width="wrap_content"
@@ -44,7 +35,7 @@
       android:layout_marginTop="150dp"
       android:textSize="20sp"
       android:layout_marginLeft="100dp"
-      android:text="Recipe is not Available"
+      android:text="Recipe is not available"
       android:visibility="gone"/>
 
   <android.support.v7.widget.RecyclerView

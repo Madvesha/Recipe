@@ -1,10 +1,14 @@
 package com.simpragma.recipe.recipeapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,8 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.DatabaseHandler;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,18 +29,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.spimragma.recipe.Constants;
 
 
 import java.util.ArrayList;
 
 public class SearchItemActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText eidiText;
-    Button search_button;
+    EditText searchEditText;
+    Button searchButton;
     String TAG = getClass().getSimpleName(), url;
     ArrayList<ResultList> reciperesults;
-    Recipie post;
+    Recipe post;
     RecyclerView recyclerView;
     private DataAdapter customAdapter;
     DataBaseAdapter dataBaseAdapter;
@@ -45,28 +48,42 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     ResultList result;
     TextView textView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_item1);
 
-        if (com.spimragma.recipe.Constants.type == com.spimragma.recipe.Constants.Type.Staging) {
-            Log.d(TAG, "STAGING VERSION");
+        if (com.simpragma.recipe.Constants.type == com.simpragma.recipe.Constants.Type.Staging) {
+            String version = "";
+            try {
+                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                version = pInfo.versionName + " " + pInfo.packageName;
+                Log.d(TAG, " STAGING VERSION" + version);
+
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
-            Log.d(TAG, " PRODUCTION VERSION");
+            String version = "";
+            try {
+                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                version = pInfo.versionName + " " + pInfo.packageName;
+                Log.d(TAG, " PRODUCTION VERSION" + version);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
-        eidiText = (EditText) findViewById(R.id.editText_search);
-        search_button = (Button) findViewById(R.id.button_search);
+        searchEditText = (EditText) findViewById(R.id.editText_search);
+        searchButton = (Button) findViewById(R.id.button_search);
         textView = (TextView) findViewById(R.id.textnotfound);
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(SearchItemActivity.this, 2));
         db = new DatabaseHandler(this);
 
-        search_button.setOnClickListener(this);
+        searchButton.setOnClickListener(this);
 
-        dataBaseResults = db.getAllContacts();
+        dataBaseResults = db.getAllRecipe();
         Log.d("DataBase ResultList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
             dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
@@ -79,7 +96,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
 
-        dataBaseResults = db.getAllContacts();
+        dataBaseResults = db.getAllRecipe();
         Log.d("DataBase ResultList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
             dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
@@ -110,7 +127,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
     private void getRecipesByIngredients() {
 
-        Uri uri = Uri.parse(getString(R.string.url) + eidiText.getText().toString());
+        Uri uri = Uri.parse(getString(R.string.url) + searchEditText.getText().toString());
         url = uri.toString();
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -126,7 +143,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 Gson mGson = builder.create();
 
                 //JSON paring Vales
-                post = mGson.fromJson(response, Recipie.class);
+                post = mGson.fromJson(response, Recipe.class);
                 reciperesults = (ArrayList<ResultList>) post.getResults();
 
                 recyclerView.setVisibility(View.VISIBLE);
@@ -136,12 +153,12 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setAdapter(customAdapter);
 
                 //Deleteing DB values
-                db.deleteContact(result);
+                db.deleteRecipe(result);
 
-                Log.d("Deleted Items", "All items Deleted");
+                Log.d("Deleted Items", "From Recipe Table");
 
                 for (ResultList rs : reciperesults) {
-                    db.addContact(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
+                    db.addRecipe(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
                             rs.getHref(), rs.getThumbnail()));
 
                     Log.d("Inside Button Click", "Title" + rs.getTitle() + "Ingredients" +
@@ -164,9 +181,16 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        getRecipesByIngredients();
-    }
 
+        ConnectivityManager ConnectionManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = ConnectionManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected() == true) {
+            getRecipesByIngredients();
+
+        } else {
+            Toast.makeText(SearchItemActivity.this, "Network Not Available", Toast.LENGTH_LONG).show();
+        }
+    }
 }
 
 
