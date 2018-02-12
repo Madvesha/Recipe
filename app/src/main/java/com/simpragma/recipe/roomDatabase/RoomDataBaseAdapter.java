@@ -1,4 +1,4 @@
-package com.simpragma.recipe.recipeapp;
+package com.simpragma.recipe.roomDatabase;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,40 +9,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.simpragma.recipe.recipeapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Madvesha  on 2/1/18.
+ * Created by Madvesha on 2/12/18.
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class RoomDataBaseAdapter extends RecyclerView.Adapter<RoomDataBaseAdapter.ViewHolder> {
 
-    Recipe recipeResult;
     Context context;
-    private ArrayList<ResultList> apiResultList;
+    private List<RecipeRoomDB> recipeRoomDBList;
 
 
-    public DataAdapter(Context context, Recipe recipeResult, ArrayList<ResultList> arrylist) {
-        this.recipeResult = recipeResult;
+    public RoomDataBaseAdapter(Context context, List<RecipeRoomDB> recipeRoomDBList) {
+        this.recipeRoomDBList = recipeRoomDBList;
         this.context = context;
-        apiResultList = arrylist;
     }
-
     @Override
-    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_row, viewGroup,
                 false);
-        return new ViewHolder(view);
+        return new RoomDataBaseAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder holder, final int i) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        holder.titleTextView.setText(apiResultList.get(i).getTitle());
-        String recipeImage = apiResultList.get(i).getThumbnail();
+        holder.titleTextView.setText(recipeRoomDBList.get(position).getTitle());
+        String recipeImage = recipeRoomDBList.get(position).getThumbnail();
         if (recipeImage.equals("") || recipeImage == null) {
             Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
         } else {
@@ -54,19 +51,19 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             public void onClick(View view) {
                 // open another activity on item click
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-                browserIntent.setData(Uri.parse(apiResultList.get(i).getHref().toString().trim()));
+                browserIntent.setData(Uri.parse(recipeRoomDBList.get(position).getHref().toString().trim()));
                 context.startActivity(browserIntent);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return apiResultList.size();
+        return recipeRoomDBList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         ImageView recipeImageView;
 
