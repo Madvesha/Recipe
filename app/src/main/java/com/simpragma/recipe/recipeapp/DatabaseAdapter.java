@@ -18,11 +18,11 @@ import java.util.ArrayList;
  * Created by Madvesha on 2/4/18.
  */
 
-public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHolder> {
+public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
     ArrayList<ResultList> dataBaseList;
     Context context;
 
-    public DataBaseAdapter(Context context, ArrayList<ResultList> dataBaseList) {
+    public DatabaseAdapter(Context context, ArrayList<ResultList> dataBaseList) {
         this.context = context;
         this.dataBaseList = dataBaseList;
     }
@@ -37,12 +37,9 @@ public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int i) {
         holder.titleTextView.setText(dataBaseList.get(i).getTitle());
-        String recipeIamge = dataBaseList.get(i).getThumbnail();
-        if (recipeIamge.equals("") || recipeIamge == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        } else {
-            Picasso.with(context).load(recipeIamge).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        }
+
+        Picasso.with(context).load(dataBaseList.get(i).getThumbnail())
+                .placeholder(R.mipmap.ic_launcher).into(holder.recipeImageView);
 
         holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,9 +63,8 @@ public class DataBaseAdapter extends RecyclerView.Adapter<DataBaseAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.tv_title);
+            recipeImageView = (ImageView) view.findViewById(R.id.img_recipe);
         }
     }
-
 }

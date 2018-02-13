@@ -42,11 +42,14 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     Recipe post;
     RecyclerView recyclerView;
     private DataAdapter customAdapter;
-    DataBaseAdapter dataBaseAdapter;
+    DatabaseAdapter dataBaseAdapter;
     ArrayList<ResultList> dataBaseResults;
     DatabaseHandler db;
     ResultList result;
     TextView textView;
+    String version = "";
+    PackageInfo pInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,29 +57,29 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_search_item1);
 
         if (com.simpragma.recipe.Constants.type == com.simpragma.recipe.Constants.Type.Staging) {
-            String version = "";
             try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 version = pInfo.versionName + " " + pInfo.packageName;
                 Log.d(TAG, " STAGING VERSION" + version);
 
             } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error: NameNotFoundException" + e.getMessage());
+                Toast.makeText(this, "Error: NameNotFoundException" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         } else {
-            String version = "";
+
             try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 version = pInfo.versionName + " " + pInfo.packageName;
                 Log.d(TAG, " PRODUCTION VERSION" + version);
             } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error: NameNotFoundException" + e.getMessage());
+                Toast.makeText(this, "Error: NameNotFoundException" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
-
-        searchEditText = (EditText) findViewById(R.id.editText_search);
-        searchButton = (Button) findViewById(R.id.button_search);
-        textView = (TextView) findViewById(R.id.textnotfound);
+        searchEditText = (EditText) findViewById(R.id.et_search);
+        searchButton = (Button) findViewById(R.id.bt_search);
+        textView = (TextView) findViewById(R.id.tv_notfound);
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(SearchItemActivity.this, 2));
         db = new DatabaseHandler(this);
@@ -86,7 +89,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         dataBaseResults = db.getAllRecipe();
         Log.d("DataBase ResultList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
-            dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
+            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
             recyclerView.setBackgroundColor(Color.LTGRAY);
             recyclerView.setAdapter(dataBaseAdapter);
         }
@@ -99,18 +102,10 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         dataBaseResults = db.getAllRecipe();
         Log.d("DataBase ResultList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
-            dataBaseAdapter = new DataBaseAdapter(SearchItemActivity.this, dataBaseResults);
+            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
+            recyclerView.setBackgroundColor(Color.LTGRAY);
             recyclerView.setAdapter(dataBaseAdapter);
         }
-
-        for (ResultList cn : dataBaseResults) {
-            String log = "Id: " + cn.getId() + " ,Title: " + cn.getTitle()
-                    + " ,Ingredients: " + cn.getIngredients() + "Href" + cn.getHref() +
-                    " ,Thumbnail" + cn.getThumbnail();
-            // Inserting Database  to log
-            Log.d("Insert Database Values:", log);
-        }
-
     }
 
     @Override
@@ -149,18 +144,17 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setVisibility(View.VISIBLE);
                 customAdapter = new DataAdapter(SearchItemActivity.this, post, reciperesults);
                 recyclerView.setBackgroundColor(Color.CYAN);
+
                 // set the Adapter to RecyclerView
                 recyclerView.setAdapter(customAdapter);
 
                 //Deleteing DB values
                 db.deleteRecipe(result);
 
-                Log.d("Deleted Items", "From Recipe Table");
 
                 for (ResultList rs : reciperesults) {
                     db.addRecipe(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
                             rs.getHref(), rs.getThumbnail()));
-
                     Log.d("Inside Button Click", "Title" + rs.getTitle() + "Ingredients" +
                             rs.getIngredients() + "Thumbnail" + rs.getThumbnail());
                 }
@@ -191,6 +185,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(SearchItemActivity.this, "Network Not Available", Toast.LENGTH_LONG).show();
         }
     }
+
 }
 
 

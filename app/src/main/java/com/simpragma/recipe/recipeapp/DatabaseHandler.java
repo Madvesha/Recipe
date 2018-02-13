@@ -52,10 +52,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
-        Log.d(TAG, "Upgrade Recipe Table");
-        // Create tables again
-        onCreate(db);
+        Log.d(TAG, "in onUpgrade. Old is: " + oldVersion + " New is: " + newVersion);
+
+        if (newVersion > oldVersion) {
+            // db.execSQL("ALTER TABLE Recipe ADD COLUMN NOTES TEXT");
+            Log.d(TAG, "If any change alteration in table above table excute");
+        }
     }
 
     // Adding new Recipe
@@ -64,10 +66,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, result.getTitle()); // Recipe Title
-        values.put(KEY_INGREDIENTS, result.getIngredients()); // Recipe Ingredients
-        values.put(KEY_HREF, result.getHref()); // Recipe URL
-        values.put(KEY_THUMBNAIL, result.getThumbnail()); // Recipe Image
+        // Recipe Title
+        values.put(KEY_TITLE, result.getTitle());
+        // Recipe Ingredients
+        values.put(KEY_INGREDIENTS, result.getIngredients());
+        // Recipe URL
+        values.put(KEY_HREF, result.getHref());
+        // Recipe Image
+        values.put(KEY_THUMBNAIL, result.getThumbnail());
 
         Log.d("KEY_TITLE", result.getTitle());
         Log.d("KEY_INGREDIENTS", result.getIngredients());

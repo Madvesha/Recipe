@@ -44,18 +44,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public void onBindViewHolder(DataAdapter.ViewHolder holder, final int i) {
 
         holder.titleTextView.setText(apiResultList.get(i).getTitle());
-        String recipeImage = apiResultList.get(i).getThumbnail();
-        if (recipeImage.equals("") || recipeImage == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        } else {
-            Picasso.with(context).load(recipeImage).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        }
+
+        Picasso.with(context).load(apiResultList.get(i).getThumbnail())
+                .placeholder(R.mipmap.ic_launcher).into(holder.recipeImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // open another activity on item click
-                Log.d("DataAdapter","onClick");
+                Log.d("DataAdapter", "onClick");
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
                 browserIntent.setData(Uri.parse(apiResultList.get(i).getHref().toString().trim()));
                 context.startActivity(browserIntent);
@@ -76,8 +73,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.titleTextview);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipeimage);
+            titleTextView = (TextView) view.findViewById(R.id.tv_title);
+            recipeImageView = (ImageView) view.findViewById(R.id.img_recipe);
         }
     }
 
