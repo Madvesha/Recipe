@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.simpragma.recipe.recipeapp.ResultList;
-
 import java.util.ArrayList;
 
 /**
@@ -56,12 +54,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (newVersion > oldVersion) {
             // db.execSQL("ALTER TABLE Recipe ADD COLUMN NOTES TEXT");
-            Log.d(TAG, "If any change alteration in table above table excute");
+            Log.d(TAG, "If any  alteration in table above query execute");
         }
     }
 
     // Adding new Recipe
-    public void addRecipe(ResultList result) {
+    public void addRecipe(RecipetList result) {
         Log.d(TAG, "Inserting values to Recipe Table");
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting  Recipe table rows
-    public void deleteRecipe(ResultList result) {
+    public void deleteRecipe(RecipetList result) {
         //Delete rows from Recipe Table
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d(TAG, "Delete row from Recipe Table");
@@ -95,11 +93,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Recipe
-    public ArrayList<ResultList> getAllRecipe() {
+    public ArrayList<RecipetList> getAllRecipe() {
 
         Log.d(TAG, "Retrieving values from Recipe Table");
 
-        ArrayList<ResultList> recipeResults = new ArrayList<ResultList>();
+        ArrayList<RecipetList> recipeResults = new ArrayList<RecipetList>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_RECIPE;
 
@@ -109,7 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                ResultList recipeResult = new ResultList();
+                RecipetList recipeResult = new RecipetList();
                 recipeResult.setId(Integer.parseInt(cursor.getString(0)));
                 recipeResult.setTitle(cursor.getString(1));
                 recipeResult.setIngredients(cursor.getString(2));

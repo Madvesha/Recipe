@@ -38,14 +38,14 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     EditText searchEditText;
     Button searchButton;
     String TAG = getClass().getSimpleName(), url;
-    ArrayList<ResultList> reciperesults;
+    ArrayList<RecipetList> reciperesults;
     Recipe post;
     RecyclerView recyclerView;
     private DataAdapter customAdapter;
     DatabaseAdapter dataBaseAdapter;
-    ArrayList<ResultList> dataBaseResults;
+    ArrayList<RecipetList> dataBaseResults;
     DatabaseHandler db;
-    ResultList result;
+    RecipetList result;
     TextView textView;
     String version = "";
     PackageInfo pInfo;
@@ -87,7 +87,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         searchButton.setOnClickListener(this);
 
         dataBaseResults = db.getAllRecipe();
-        Log.d("DataBase ResultList", dataBaseResults.size() + "");
+        Log.d("DataBase RecipetList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
             dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
             recyclerView.setBackgroundColor(Color.LTGRAY);
@@ -100,7 +100,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         super.onStart();
 
         dataBaseResults = db.getAllRecipe();
-        Log.d("DataBase ResultList", dataBaseResults.size() + "");
+        Log.d("DataBase RecipetList", dataBaseResults.size() + "");
         if (dataBaseResults.size() > 0) {
             dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
             recyclerView.setBackgroundColor(Color.LTGRAY);
@@ -139,7 +139,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
                 //JSON paring Vales
                 post = mGson.fromJson(response, Recipe.class);
-                reciperesults = (ArrayList<ResultList>) post.getResults();
+                reciperesults = (ArrayList<RecipetList>) post.getResults();
 
                 recyclerView.setVisibility(View.VISIBLE);
                 customAdapter = new DataAdapter(SearchItemActivity.this, post, reciperesults);
@@ -152,8 +152,8 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 db.deleteRecipe(result);
 
 
-                for (ResultList rs : reciperesults) {
-                    db.addRecipe(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
+                for (RecipetList rs : reciperesults) {
+                    db.addRecipe(new RecipetList(rs.getId(), rs.getTitle(), rs.getIngredients(),
                             rs.getHref(), rs.getThumbnail()));
                     Log.d("Inside Button Click", "Title" + rs.getTitle() + "Ingredients" +
                             rs.getIngredients() + "Thumbnail" + rs.getThumbnail());

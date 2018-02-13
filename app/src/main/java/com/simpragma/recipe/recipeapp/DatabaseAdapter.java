@@ -19,10 +19,10 @@ import java.util.ArrayList;
  */
 
 public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
-    ArrayList<ResultList> dataBaseList;
+    ArrayList<RecipetList> dataBaseList;
     Context context;
 
-    public DatabaseAdapter(Context context, ArrayList<ResultList> dataBaseList) {
+    public DatabaseAdapter(Context context, ArrayList<RecipetList> dataBaseList) {
         this.context = context;
         this.dataBaseList = dataBaseList;
     }

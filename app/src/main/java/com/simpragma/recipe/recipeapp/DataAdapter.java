@@ -23,10 +23,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     Recipe recipeResult;
     Context context;
-    private ArrayList<ResultList> apiResultList;
+    private ArrayList<RecipetList> apiResultList;
 
 
-    public DataAdapter(Context context, Recipe recipeResult, ArrayList<ResultList> arrylist) {
+    public DataAdapter(Context context, Recipe recipeResult, ArrayList<RecipetList> arrylist) {
         this.recipeResult = recipeResult;
         this.context = context;
         apiResultList = arrylist;
