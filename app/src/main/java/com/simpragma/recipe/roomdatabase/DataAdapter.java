@@ -1,4 +1,4 @@
-package com.simpragma.recipe.roomDatabase;
+package com.simpragma.recipe.roomdatabase;
 
 import android.content.Context;
 import android.content.Intent;

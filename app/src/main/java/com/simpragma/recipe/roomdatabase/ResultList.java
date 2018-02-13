@@ -1,5 +1,5 @@
 
-package com.simpragma.recipe.roomDatabase;
+package com.simpragma.recipe.roomdatabase;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

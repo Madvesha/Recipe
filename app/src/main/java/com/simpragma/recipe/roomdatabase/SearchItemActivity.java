@@ -1,4 +1,4 @@
-package com.simpragma.recipe.roomDatabase;
+package com.simpragma.recipe.roomdatabase;
 
 
 import android.arch.persistence.room.Room;
@@ -56,7 +56,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
     AppDatabase db1;
     RecipeRoomDB recipeRoomDB;
-    List<com.simpragma.recipe.roomDatabase.RecipeRoomDB> recipesList;
+    List<com.simpragma.recipe.roomdatabase.RecipeRoomDB> recipesList;
     RoomDatabaseAdapter roomDataBaseAdapter;
 
     @Override
@@ -190,7 +190,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 for (ResultList rs : reciperesults) {
 
                     db1.recipeDao().insertAll(new
-                            com.simpragma.recipe.roomDatabase.RecipeRoomDB(rs.getId(), rs.getTitle(), rs.getIngredients(), rs.getHref(), rs.getThumbnail()));
+                            com.simpragma.recipe.roomdatabase.RecipeRoomDB(rs.getId(), rs.getTitle(), rs.getIngredients(), rs.getHref(), rs.getThumbnail()));
 
                     Log.d("Inside Button Click", "Title" + rs.getTitle() + "Ingredients" +
                             rs.getIngredients() + "Thumbnail" + rs.getThumbnail());
