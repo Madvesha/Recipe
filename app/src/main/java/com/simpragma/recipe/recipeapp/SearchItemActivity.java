@@ -57,7 +57,6 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     String version = "";
     PackageInfo pInfo;
 
-
     AppDatabase db1;
     RecipeRoomDB recipeRoomDB;
     List<com.simpragma.recipe.roomDatabase.RecipeRoomDB> recipesList;
@@ -75,29 +74,34 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 Log.d(TAG, " STAGING VERSION" + version);
 
             } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error: NameNotFoundException" + e.getMessage());
+                Toast.makeText(this, "Error: NameNotFoundException" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         } else {
+
             try {
                 pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 version = pInfo.versionName + " " + pInfo.packageName;
                 Log.d(TAG, " PRODUCTION VERSION" + version);
             } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error: NameNotFoundException" + e.getMessage());
+                Toast.makeText(this, "Error: NameNotFoundException" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
 
-        searchEditText = (EditText) findViewById(R.id.editText_search);
-        searchButton = (Button) findViewById(R.id.button_search);
-        textView = (TextView) findViewById(R.id.text_notfound);
+        searchEditText = (EditText) findViewById(R.id.et_search);
+        searchButton = (Button) findViewById(R.id.bt_search);
+        textView = (TextView) findViewById(R.id.tv_notfound);
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(SearchItemActivity.this, 2));
         db = new DatabaseHandler(this);
 
+        //Declare Room database object
         db1 = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "recipeMangerRoom").allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
+
         recipesList = db1.recipeDao().getAll();
 
         searchButton.setOnClickListener(this);
@@ -114,14 +118,6 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
         }
 
-//        dataBaseResults = db.getAllRecipe();
-//        Log.d("DataBase ResultList", dataBaseResults.size() + "");
-//        if (dataBaseResults.size() > 0) {
-//            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
-//            recyclerView.setBackgroundColor(Color.LTGRAY);
-//            recyclerView.setAdapter(dataBaseAdapter);
-//        }
-
         Log.d("RoomDataBase ResultList", recipesList.size() + "");
         if (recipesList.size() > 0) {
             roomDataBaseAdapter = new RoomDatabaseAdapter(SearchItemActivity.this, recipesList);
@@ -135,12 +131,6 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
 
-//        dataBaseResults = db.getAllRecipe();
-//        Log.d("DataBase ResultList", dataBaseResults.size() + "");
-//        if (dataBaseResults.size() > 0) {
-//            dataBaseAdapter = new DatabaseAdapter(SearchItemActivity.this, dataBaseResults);
-//            recyclerView.setAdapter(dataBaseAdapter);
-//        }
 
         Log.d("RoomDataBase ResultList", recipesList.size() + "");
         if (recipesList.size() > 0) {
@@ -186,11 +176,9 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setVisibility(View.VISIBLE);
                 customAdapter = new DataAdapter(SearchItemActivity.this, post, reciperesults);
                 recyclerView.setBackgroundColor(Color.CYAN);
+
                 // set the Adapter to RecyclerView
                 recyclerView.setAdapter(customAdapter);
-
-                //Deleteing DB values
-                //  db.deleteRecipe(result);
 
                 for (RecipeRoomDB model : recipesList) {
                     Log.d(TAG, model.getId() + "");
@@ -198,17 +186,13 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                     Log.d(TAG, model.getIngredients());
                     Log.d(TAG, model.getHref());
                     Log.d(TAG, model.getThumbnail());
-
                 }
 
                 Log.d(TAG, "Deletd Items From ROOMDB");
                 db1.recipeDao().deleteRecipe();
 
-                //  Log.d("Deleted Items", "From Recipe Table");
-
                 for (ResultList rs : reciperesults) {
-//                    db.addRecipe(new ResultList(rs.getId(), rs.getTitle(), rs.getIngredients(),
-//                            rs.getHref(), rs.getThumbnail()));
+
                     db1.recipeDao().insertAll(new
                             com.simpragma.recipe.roomDatabase.RecipeRoomDB(rs.getId(), rs.getTitle(), rs.getIngredients(), rs.getHref(), rs.getThumbnail()));
 

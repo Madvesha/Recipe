@@ -41,12 +41,9 @@ public class RoomDatabaseAdapter extends RecyclerView.Adapter<RoomDatabaseAdapte
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.titleTextView.setText(recipeRoomDBList.get(position).getTitle());
-        String recipeImage = recipeRoomDBList.get(position).getThumbnail();
-        if (recipeImage.equals("") || recipeImage == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        } else {
-            Picasso.with(context).load(recipeImage).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        }
+
+        Picasso.with(context).load(recipeRoomDBList.get(position).getThumbnail())
+                .placeholder(R.mipmap.ic_launcher).into(holder.recipeImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +68,8 @@ public class RoomDatabaseAdapter extends RecyclerView.Adapter<RoomDatabaseAdapte
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.title_TextView);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipe_Image);
+            titleTextView = (TextView) view.findViewById(R.id.tv_title);
+            recipeImageView = (ImageView) view.findViewById(R.id.img_recipe);
         }
     }
 }

@@ -37,12 +37,9 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int i) {
         holder.titleTextView.setText(dataBaseList.get(i).getTitle());
-        String recipeIamge = dataBaseList.get(i).getThumbnail();
-        if (recipeIamge.equals("") || recipeIamge == null) {
-            Picasso.with(context).load(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        } else {
-            Picasso.with(context).load(recipeIamge).error(R.mipmap.ic_launcher).into(holder.recipeImageView);
-        }
+
+        Picasso.with(context).load(dataBaseList.get(i).getThumbnail())
+                .placeholder(R.mipmap.ic_launcher).into(holder.recipeImageView);
 
         holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +63,8 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-            titleTextView = (TextView) view.findViewById(R.id.title_TextView);
-            recipeImageView = (ImageView) view.findViewById(R.id.recipe_Image);
+            titleTextView = (TextView) view.findViewById(R.id.tv_title);
+            recipeImageView = (ImageView) view.findViewById(R.id.img_recipe);
         }
     }
 

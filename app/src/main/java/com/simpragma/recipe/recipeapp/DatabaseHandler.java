@@ -52,11 +52,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
-        Log.d(TAG, "Upgrade Recipe Table");
-        // Create tables again
-        onCreate(db);
+
+        Log.d(TAG, "in onUpgrade. Old is: " + oldVersion + " New is: " + newVersion);
+
+        if (newVersion > oldVersion) {
+            // db.execSQL("ALTER TABLE Recipe ADD COLUMN NOTES TEXT");
+            Log.d(TAG, "If any change alteration in table above table excute");
+        }
     }
+
 
     // Adding new Recipe
     public void addRecipe(ResultList result) {
@@ -81,6 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Deleting  Recipe table rows
     public void deleteRecipe(ResultList result) {
+
         //Delete rows from Recipe Table
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d(TAG, "Delete row from Recipe Table");
