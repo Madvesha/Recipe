@@ -1,5 +1,5 @@
 
-package com.simpragma.recipe.roomdatabase;
+package com.simpragma.recipe.pojoclass;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -19,7 +19,7 @@ public class Recipe {
     private String href;
     @SerializedName("results")
     @Expose
-    private List<ResultList> results = null;
+    private List<RecipetList> results = null;
 
     public String getTitle() {
         return title;
@@ -45,11 +45,11 @@ public class Recipe {
         this.href = href;
     }
 
-    public List<ResultList> getResults() {
+    public List<RecipetList> getResults() {
         return results;
     }
 
-    public void setResults(List<ResultList> results) {
+    public void setResults(List<RecipetList> results) {
         this.results = results;
     }
 

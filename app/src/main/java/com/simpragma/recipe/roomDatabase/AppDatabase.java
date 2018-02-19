@@ -1,4 +1,4 @@
-package com.simpragma.recipe.roomdatabase;
+package com.simpragma.recipe.roomDatabase;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;

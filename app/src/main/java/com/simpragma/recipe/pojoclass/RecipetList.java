@@ -1,10 +1,10 @@
 
-package com.simpragma.recipe.roomdatabase;
+package com.simpragma.recipe.pojoclass;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResultList {
+public class RecipetList {
 
     @SerializedName("title")
     @Expose
@@ -62,12 +62,12 @@ public class ResultList {
     }
 
     // Empty constructor
-    public ResultList() {
+    public RecipetList() {
 
     }
 
     // constructor
-    public ResultList(int id, String title, String ingredients, String href, String thumbnail) {
+    public RecipetList(int id, String title, String ingredients, String href, String thumbnail) {
         this.id = id;
         this.title = title;
         this.ingredients = ingredients;
@@ -76,7 +76,7 @@ public class ResultList {
     }
 
     // constructor
-    public ResultList(String title, String ingredients, String href, String thumbnail) {
+    public RecipetList(String title, String ingredients, String href, String thumbnail) {
         this.thumbnail = title;
         this.ingredients = ingredients;
         this.href = href;

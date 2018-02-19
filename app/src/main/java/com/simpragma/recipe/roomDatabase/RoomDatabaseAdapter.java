@@ -1,4 +1,4 @@
-package com.simpragma.recipe.roomdatabase;
+package com.simpragma.recipe.roomDatabase;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,58 +13,56 @@ import android.widget.TextView;
 import com.simpragma.recipe.recipeapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Madvesha  on 2/1/18.
+ * Created by Madvesha on 2/12/18.
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class RoomDatabaseAdapter extends RecyclerView.Adapter<RoomDatabaseAdapter.ViewHolder> {
 
-    Recipe recipeResult;
     Context context;
-    private ArrayList<ResultList> apiResultList;
+    private List<RecipeRoomDB> recipeRoomDBList;
 
 
-    public DataAdapter(Context context, Recipe recipeResult, ArrayList<ResultList> arrylist) {
-        this.recipeResult = recipeResult;
+    public RoomDatabaseAdapter(Context context, List<RecipeRoomDB> recipeRoomDBList) {
+        this.recipeRoomDBList = recipeRoomDBList;
         this.context = context;
-        apiResultList = arrylist;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_row, viewGroup,
                 false);
-        return new ViewHolder(view);
+        return new RoomDatabaseAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int i) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        holder.titleTextView.setText(apiResultList.get(i).getTitle());
+        holder.titleTextView.setText(recipeRoomDBList.get(position).getTitle().trim());
 
-        Picasso.with(context).load(apiResultList.get(i).getThumbnail())
-                .placeholder(R.mipmap.ic_launcher).into(holder.recipeImageView);
+        Picasso.with(context).load(recipeRoomDBList.get(position).getThumbnail())
+                .placeholder(R.mipmap.ic_launcher).resize(85,85).into(holder.recipeImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // open another activity on item click
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-                browserIntent.setData(Uri.parse(apiResultList.get(i).getHref().toString().trim()));
+                browserIntent.setData(Uri.parse(recipeRoomDBList.get(position).getHref().toString().trim()));
                 context.startActivity(browserIntent);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return apiResultList.size();
+        return recipeRoomDBList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         ImageView recipeImageView;
 
