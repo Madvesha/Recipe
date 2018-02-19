@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,12 +36,11 @@ import com.simpragma.recipe.roomDatabase.AppDatabase;
 import com.simpragma.recipe.adapterclass.DataAdapter;
 import com.simpragma.recipe.pojoclass.Recipe;
 import com.simpragma.recipe.roomDatabase.RecipeRoomDB;
-import com.simpragma.recipe.pojoclass.RecipetList;
+import com.simpragma.recipe.pojoclass.RecipeList;
 import com.simpragma.recipe.roomDatabase.RoomDatabaseAdapter;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,8 +50,8 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     EditText searchEditText;
     Button searchButton;
     String TAG = getClass().getSimpleName(), url;
-    ArrayList<RecipetList> reciperesults;
-    ArrayList<RecipetList> addRecipelist;
+    ArrayList<RecipeList> reciperesults;
+    ArrayList<RecipeList> addRecipelist;
     Recipe post;
     RecyclerView recyclerView;
 
@@ -62,7 +60,6 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
 
     private final int PAGE_START = 1;
     private boolean isLoading = false;
-    private boolean isLastPage = false;
     private int TOTAL_PAGES = 3;
     private int currentPage;
 
@@ -76,7 +73,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
     List<com.simpragma.recipe.roomDatabase.RecipeRoomDB> recipesList;
     RoomDatabaseAdapter roomDataBaseAdapter;
     String version = "";
-    Set<RecipetList> set;
+    Set<RecipeList> set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +91,9 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
         searchEditText = (EditText) findViewById(R.id.et_search);
         searchButton = (Button) findViewById(R.id.bt_search);
         textView = (TextView) findViewById(R.id.tv_notfound);
-        addRecipelist = new ArrayList<RecipetList>();
-        reciperesults = new ArrayList<RecipetList>();
-        set = new HashSet<RecipetList>();
+        addRecipelist = new ArrayList<RecipeList>();
+        reciperesults = new ArrayList<RecipeList>();
+        set = new HashSet<RecipeList>();
 
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         gridLayoutManager = new GridLayoutManager(this, 2);
@@ -160,7 +157,7 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setVisibility(View.VISIBLE);
                 //JSON paring Vales
                 post = mGson.fromJson(response, Recipe.class);
-                reciperesults = (ArrayList<RecipetList>) post.getResults();
+                reciperesults = (ArrayList<RecipeList>) post.getResults();
                 if (reciperesults.size() == 0) {
                     recyclerView.setVisibility(View.GONE);
                     textView.setVisibility(View.VISIBLE);
@@ -186,12 +183,12 @@ public class SearchItemActivity extends AppCompatActivity implements View.OnClic
                     Log.d(TAG, model.getThumbnail());
                 }
 
-                for (RecipetList re : addRecipelist) {
+                for (RecipeList re : addRecipelist) {
                     Log.d("AddRecipelist", "Title" + re.getTitle() + "Ingredients" +
                             re.getIngredients() + "Thumbnail" + re.getThumbnail());
 
                 }
-                for (RecipetList rs : reciperesults) {
+                for (RecipeList rs : reciperesults) {
 
                     roomDB.recipeDao().insertAll(new
                             com.simpragma.recipe.roomDatabase.RecipeRoomDB(rs.getId(), rs.getTitle(), rs.getIngredients(), rs.getHref(), rs.getThumbnail()));

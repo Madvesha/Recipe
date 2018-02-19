@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simpragma.recipe.pojoclass.Recipe;
-import com.simpragma.recipe.pojoclass.RecipetList;
+import com.simpragma.recipe.pojoclass.RecipeList;
 import com.simpragma.recipe.recipeapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,12 +28,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Recipe recipeResult;
     Context context;
-    private ArrayList<RecipetList> apiResultList;
+    private ArrayList<RecipeList> apiResultList;
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
 
-    public DataAdapter(Context context, Recipe recipeResult, ArrayList<RecipetList> arrylist) {
+    public DataAdapter(Context context, Recipe recipeResult, ArrayList<RecipeList> arrylist) {
         this.recipeResult = recipeResult;
         this.context = context;
         apiResultList = arrylist;
@@ -134,18 +134,18 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    _________________________________________________________________________________________________
     */
 
-    public void add(RecipetList r) {
+    public void add(RecipeList r) {
         apiResultList.add(r);
         notifyItemInserted(apiResultList.size() - 1);
     }
 
-    public void addAll(List<RecipetList> moveResults) {
-        for (RecipetList result : moveResults) {
+    public void addAll(List<RecipeList> moveResults) {
+        for (RecipeList result : moveResults) {
             add(result);
         }
     }
 
-    public void remove(RecipetList r) {
+    public void remove(RecipeList r) {
         int position = apiResultList.indexOf(r);
         if (position > -1) {
             apiResultList.remove(position);
@@ -168,21 +168,21 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new RecipetList());
+        add(new RecipeList());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = apiResultList.size() - 1;
-        RecipetList result = getItem(position);
+        RecipeList result = getItem(position);
 
         if (result != null) {
             apiResultList.remove(position);
         }
     }
 
-    public RecipetList getItem(int position) {
+    public RecipeList getItem(int position) {
         return apiResultList.get(position);
     }
 

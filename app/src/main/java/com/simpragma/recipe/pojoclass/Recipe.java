@@ -19,7 +19,7 @@ public class Recipe {
     private String href;
     @SerializedName("results")
     @Expose
-    private List<RecipetList> results = null;
+    private List<RecipeList> results = null;
 
     public String getTitle() {
         return title;
@@ -45,11 +45,11 @@ public class Recipe {
         this.href = href;
     }
 
-    public List<RecipetList> getResults() {
+    public List<RecipeList> getResults() {
         return results;
     }
 
-    public void setResults(List<RecipetList> results) {
+    public void setResults(List<RecipeList> results) {
         this.results = results;
     }
 
