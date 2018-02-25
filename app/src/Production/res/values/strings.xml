@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Recipe Search</string>
     <string name="title_activity_search_acivtiy">SearchAcivtiy</string>
-    <string name="url">http://www.recipepuppy.com/api/?i=</string>
+    <string name="url">http://www.recipepuppy.com/</string>
 </resources>

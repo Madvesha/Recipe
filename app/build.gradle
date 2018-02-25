@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'signing'
 
 android {
     compileSdkVersion 26
@@ -6,10 +7,22 @@ android {
 
     signingConfigs {
         releaseconfig {
-            keyAlias 'recipe'
-            keyPassword 'application'
-            storeFile file('/home/shubhank/AndroidStudioProjects/RecipeApplication1/app/build/outputs/apk/Staging/signedapk/staging-release.jks')
-            storePassword 'recipeapp'
+            def Properties props = new Properties()
+            def propFile = file('../signing.properties')
+            if (propFile.canRead()) {
+                props.load(new FileInputStream(propFile))
+
+                if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    android.signingConfigs.releaseConfig.storeFile = file(props['STORE_FILE'])
+                    android.signingConfigs.releaseConfig.storePassword = props['STORE_PASSWORD']
+                    android.signingConfigs.releaseConfig.keyAlias = props['KEY_ALIAS']
+                    android.signingConfigs.releaseConfig.keyPassword = props['KEY_PASSWORD']
+                } else {
+                    android.buildTypes.releaseConfig.signingConfig = null
+                }
+            }
+
         }
     }
     defaultConfig {
@@ -32,7 +45,7 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
     productFlavors {
@@ -42,9 +55,7 @@ android {
             //configure applicationId for app published to Play store
             applicationId "com.simpragma.recipe.stage"
             //Configure this flavor specific app name published in Play Store
-            //resValue "string", "flavored_app_nae.st", "Free Great App"
             signingConfig signingConfigs.releaseconfig
-            targetSdkVersion 20
         }
         Production {
             //select the dimension of flavor
@@ -52,8 +63,7 @@ android {
             //configure applicationId for app published to Play store
             applicationId "com.simpragma.recipe"
             //Configure this flavor specific app name published in Play Store
-            //resValue "string", "flavored_app_name", "Free Great App"
-            minSdkVersion 21
+            signingConfig signingConfigs.releaseconfig
         }
     }
 }
@@ -69,13 +79,13 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:26.1.0'
-
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     implementation 'android.arch.paging:runtime:1.0.0-alpha4-1'
-
     // Room
     compile 'android.arch.persistence.room:runtime:1.0.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
-
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'junit:junit:4.12'

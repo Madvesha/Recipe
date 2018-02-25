@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 /**
  * Created by Madvesha on 2/12/18.
  */
-@Database(entities = {RecipeRoomDB.class}, version = 2)
+@Database(entities = {RecipeRoomEntityClass.class}, version = 3)
 
 public abstract class AppDatabase extends RoomDatabase {
 

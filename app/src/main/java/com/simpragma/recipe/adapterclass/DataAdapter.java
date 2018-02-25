@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simpragma.recipe.pojoclass.Recipe;
-import com.simpragma.recipe.pojoclass.RecipeList;
+import com.simpragma.recipe.pojoclass.RecipePojoClass;
 import com.simpragma.recipe.recipeapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,12 +28,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Recipe recipeResult;
     Context context;
-    private ArrayList<RecipeList> apiResultList;
+    private ArrayList<RecipePojoClass> apiResultList;
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
 
-    public DataAdapter(Context context, Recipe recipeResult, ArrayList<RecipeList> arrylist) {
+    public DataAdapter(Context context, Recipe recipeResult, ArrayList<RecipePojoClass> arrylist) {
         this.recipeResult = recipeResult;
         this.context = context;
         apiResultList = arrylist;
@@ -50,8 +50,8 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 viewHolder = getViewHolder(viewGroup, inflater);
                 break;
             case LOADING:
-                View v2 = inflater.inflate(R.layout.item_progress, viewGroup, false);
-                viewHolder = new LoadingViewHolder(v2);
+                View viewHolderLoading = inflater.inflate(R.layout.item_progress, viewGroup, false);
+                viewHolder = new LoadingViewHolder(viewHolderLoading);
                 break;
         }
         return viewHolder;
@@ -67,8 +67,8 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 final ViewHolder recipeVH = (ViewHolder) holder;
                 Log.d("DATAADAPTER", apiResultList.get(i).getTitle().trim());
                 recipeVH.titleTextView.setText(apiResultList.get(i).getTitle().trim());
-                Picasso.with(context).load(apiResultList.get(i).getThumbnail())
-                        .placeholder(R.mipmap.ic_launcher).resize(85, 85).into(recipeVH.recipeImageView);
+                Picasso.with(context).load(apiResultList.get(i).getThumbnail()).fit().centerCrop()
+                        .placeholder(R.mipmap.ic_launcher).into(recipeVH.recipeImageView);
                 break;
             case LOADING:
 //               Do nothing
@@ -84,15 +84,12 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 context.startActivity(browserIntent);
             }
         });
-
     }
-
-
     @NonNull
     private RecyclerView.ViewHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
         RecyclerView.ViewHolder viewHolder;
-        View v1 = inflater.inflate(R.layout.card_row, parent, false);
-        viewHolder = new ViewHolder(v1);
+        View recyclerViewHolder = inflater.inflate(R.layout.card_row, parent, false);
+        viewHolder = new ViewHolder(recyclerViewHolder);
         return viewHolder;
     }
 
@@ -108,7 +105,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    private static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleTextView;
         ImageView recipeImageView;
@@ -121,7 +118,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    protected class LoadingViewHolder extends RecyclerView.ViewHolder {
+    private class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         public LoadingViewHolder(View itemView) {
             super(itemView);
@@ -134,57 +131,35 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    _________________________________________________________________________________________________
     */
 
-    public void add(RecipeList r) {
-        apiResultList.add(r);
+    public void add(RecipePojoClass addRecipeList) {
+        apiResultList.add(addRecipeList);
         notifyItemInserted(apiResultList.size() - 1);
     }
 
-    public void addAll(List<RecipeList> moveResults) {
-        for (RecipeList result : moveResults) {
+    public void addAll(List<RecipePojoClass> recipeResults) {
+        for (RecipePojoClass result : recipeResults) {
             add(result);
         }
-    }
-
-    public void remove(RecipeList r) {
-        int position = apiResultList.indexOf(r);
-        if (position > -1) {
-            apiResultList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, apiResultList.size());
-        }
-    }
-
-    public void clear() {
-        isLoadingAdded = false;
-        while (getItemCount() > 0) {
-            remove(getItem(0));
-        }
-    }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
     }
 
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new RecipeList());
+        add(new RecipePojoClass());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = apiResultList.size() - 1;
-        RecipeList result = getItem(position);
+        RecipePojoClass pojoClassresult = getItem(position);
 
-        if (result != null) {
+        if (pojoClassresult != null) {
             apiResultList.remove(position);
         }
     }
 
-    public RecipeList getItem(int position) {
+    public RecipePojoClass getItem(int position) {
         return apiResultList.get(position);
     }
-
-
 }

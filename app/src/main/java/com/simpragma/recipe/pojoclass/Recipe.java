@@ -19,7 +19,7 @@ public class Recipe {
     private String href;
     @SerializedName("results")
     @Expose
-    private List<RecipeList> results = null;
+    private List<RecipePojoClass> results = null;
 
     public String getTitle() {
         return title;
@@ -45,11 +45,11 @@ public class Recipe {
         this.href = href;
     }
 
-    public List<RecipeList> getResults() {
+    public List<RecipePojoClass> getResults() {
         return results;
     }
 
-    public void setResults(List<RecipeList> results) {
+    public void setResults(List<RecipePojoClass> results) {
         this.results = results;
     }
 
