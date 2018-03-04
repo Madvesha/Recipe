@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    flavorDimensions "version"
+
+    signingConfigs {
+        releaseconfig {
+            keyAlias 'recipe'
+            keyPassword 'application'
+            storeFile file('/home/shubhank/AndroidStudioProjects/RecipeApplication1/app/build/outputs/apk/Staging/signedapk/staging-release.jks')
+            storePassword 'recipeapp'
+        }
+    }
+    defaultConfig {
+        applicationId "com.simpragma.recipe.recipeapplication1"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseconfig
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        Staging {
+            //select the dimension of flavor
+            dimension "version"
+            //configure applicationId for app published to Play store
+            applicationId "com.simpragma.recipe.stage"
+            //Configure this flavor specific app name published in Play Store
+            //resValue "string", "flavored_app_nae.st", "Free Great App"
+            signingConfig signingConfigs.releaseconfig
+            targetSdkVersion 20
+        }
+        Production {
+            //select the dimension of flavor
+            dimension "version"
+            //configure applicationId for app published to Play store
+            applicationId "com.simpragma.recipe"
+            //Configure this flavor specific app name published in Play Store
+            //resValue "string", "flavored_app_name", "Free Great App"
+            minSdkVersion 21
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-v4:26.1.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:26.1.0'
+
+    // Room
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'junit:junit:4.12'
+}
